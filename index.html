@@ -363,6 +363,18 @@
 
     .field-error.show { display: block; }
 
+    .phone-wrap {
+      display: flex;
+      gap: 8px;
+    }
+    .phone-wrap #phoneCountry {
+      width: 76px;
+      flex-shrink: 0;
+    }
+    .phone-wrap #phoneNumber {
+      flex: 1;
+    }
+
     /* ── Checkbox ── */
     .checkbox-wrap {
       display: flex;
@@ -985,8 +997,11 @@
         <span class="field-error" id="emailErr">Please enter a valid email address</span>
       </div>
       <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" placeholder="e.g. 0244 000 000" autocomplete="tel" />
+        <label for="phoneNumber">Phone Number</label>
+        <div class="phone-wrap">
+          <input type="tel" id="phoneCountry" value="+233" autocomplete="tel-country-code" />
+          <input type="tel" id="phoneNumber" placeholder="244 000 000" autocomplete="tel-national" />
+        </div>
         <span class="field-error" id="phoneErr">Please enter your phone number</span>
       </div>
     </div>
@@ -1161,8 +1176,9 @@
     const lastName       = document.getElementById('lastName').value.trim();
     const restaurantName = document.getElementById('restaurantName').value.trim();
     const email          = document.getElementById('email').value.trim();
-    const rawPhone       = document.getElementById('phone').value.trim();
-    const phone          = rawPhone.startsWith('0') ? rawPhone.slice(1) : rawPhone;
+    const phoneCountry   = document.getElementById('phoneCountry').value.trim();
+    const phoneLocal     = document.getElementById('phoneNumber').value.trim();
+    const phone          = phoneCountry.replace('+', '') + phoneLocal.replace(/^0+/, '');
 
     let valid = true;
 
@@ -1174,8 +1190,8 @@
     else                        { setFieldError('restaurantName', 'restaurantNameErr', false); }
     if (!validateEmail(email))  { setFieldError('email',          'emailErr',          true);  valid = false; }
     else                        { setFieldError('email',          'emailErr',          false); }
-    if (!phone)                 { setFieldError('phone',          'phoneErr',          true);  valid = false; }
-    else                        { setFieldError('phone',          'phoneErr',          false); }
+    if (!phoneLocal)            { setFieldError('phoneNumber',    'phoneErr',          true);  valid = false; }
+    else                        { setFieldError('phoneNumber',    'phoneErr',          false); }
 
     if (!isChecked) {
       document.getElementById('checkboxWrap').classList.add('cb-error');
@@ -1219,16 +1235,22 @@
 
     console.log('Paystack phone:', phone);
 
-    const paystackMetadata = {
-      custom_fields: [{ display_name: 'Restaurant Name', variable_name: 'restaurant_name', value: restaurantName }]
-    };
+    const restaurantNameValue = restaurantName;
 
     const paystackPayload = {
       email,
       first_name: firstName,
       last_name:  lastName,
       phone,
-      metadata:   paystackMetadata
+      metadata: {
+        custom_fields: [
+          {
+            display_name: "Restaurant Name",
+            variable_name: "restaurant_name",
+            value: restaurantNameValue
+          }
+        ]
+      }
     };
 
     console.log('Paystack payload:', paystackPayload);
@@ -1238,7 +1260,7 @@
       + '&first_name=' + encodeURIComponent(firstName)
       + '&last_name='  + encodeURIComponent(lastName)
       + '&phone='      + encodeURIComponent(phone)
-      + '&metadata='   + encodeURIComponent(JSON.stringify(paystackMetadata));
+      + '&metadata='   + encodeURIComponent(JSON.stringify(paystackPayload.metadata));
     setTimeout(() => { window.location.href = paystackURL; }, 1800);
   }
 </script>
