@@ -864,7 +864,7 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
 <style>
 #chat-bubble{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:#F97316;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(249,115,22,.45);z-index:1000;transition:transform .2s,background .2s}
 #chat-bubble:hover{transform:scale(1.08);background:#EA6C10}
-#chat-panel{position:fixed;bottom:96px;right:24px;width:340px;max-height:520px;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(15,23,42,.18);z-index:1000;display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(14px);transition:opacity .25s,transform .3s cubic-bezier(.34,1.56,.64,1)}
+#chat-panel{position:fixed;bottom:96px;right:24px;width:340px;max-height:calc(100vh - 120px);background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(15,23,42,.18);z-index:1000;display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(14px);transition:opacity .25s,transform .3s cubic-bezier(.34,1.56,.64,1)}
 #chat-panel.open{opacity:1;pointer-events:all;transform:translateY(0)}
 #chat-header{background:#F97316;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .ch-left{display:flex;align-items:center;gap:10px}
@@ -905,7 +905,7 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
 #chat-send:hover{background:#EA6C10}
 #chat-send:disabled{background:#FDBA74;cursor:default}
 @media(max-width:480px){
-  #chat-panel{width:calc(100vw - 32px);right:16px;bottom:88px;max-height:70vh}
+  #chat-panel{width:calc(100vw - 32px);right:16px;bottom:88px;max-height:calc(100vh - 120px)}
   #chat-bubble{bottom:16px;right:16px}
 }
 </style>
@@ -1065,6 +1065,40 @@ IMPORTANT RULES:
   function ts()   { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
   function end()  { msgsEl.scrollTop = msgsEl.scrollHeight; }
 
+  function linkify(s) {
+    // 1. Markdown: bold then italic then strip lone asterisks
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    s = s.replace(/\*/g, '');
+    // 2. URLs
+    s = s.replace(/(https?:\/\/[^\s<>"]+)|(launch-restro\.synciosolutions\.com[^\s<>"]*)/gi, function(m, full, bare) {
+      var url = (full || bare).replace(/[.,;!?)\]]+$/, '');
+      var href = full ? url : ('https://' + url);
+      return '<a href="' + href + '" target="_blank" rel="noopener" style="color:#F97316;text-decoration:underline;">' + url + '</a>';
+    });
+    // 3. Emails
+    s = s.replace(/([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})/g, function(m, email) {
+      return '<a href="mailto:' + email + '" style="color:#F97316;">' + email + '</a>';
+    });
+    // 4. Phone numbers (+country-code format)
+    s = s.replace(/(\+\d{1,3}[\d\s\-().]{7,13})/g, function(m, phone) {
+      var trimmed = phone.trim();
+      var tel = trimmed.replace(/[^\d+]/g, '');
+      return '<a href="tel:' + tel + '" style="color:#F97316;">' + trimmed + '</a>';
+    });
+    return s;
+  }
+
+  var BTN_STYLE = 'display:inline-block;margin-top:8px;margin-right:6px;padding:8px 16px;background:#F97316;color:#fff;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;';
+  function ctaBtns(text) {
+    var btns = '';
+    if (/get started|launch-restro|sign up/i.test(text))
+      btns += '<a href="https://launch-restro.synciosolutions.com" target="_blank" rel="noopener" style="' + BTN_STYLE + '">Get Started with Restro →</a>';
+    if (/book a demo/i.test(text))
+      btns += '<a href="https://calendar.app.google/tKoCecXjgFB6zfyy7" target="_blank" rel="noopener" style="' + BTN_STYLE + '">Book a Demo →</a>';
+    return btns ? '<div style="margin-top:4px;">' + btns + '</div>' : '';
+  }
+
   function addUser(text) {
     var el = document.createElement('div');
     el.className = 'cmsg cmsg-user';
@@ -1085,7 +1119,8 @@ IMPORTANT RULES:
   function addAma(text) {
     var el = document.createElement('div');
     el.className = 'cmsg cmsg-ama';
-    el.innerHTML = '<div class="ama-av32">' + AMA_AV + '</div><div class="cmsg-body"><div class="cbubble ama-b">' + fmt(text) + '</div><div class="cmsg-time">' + ts() + '</div>' + WA_LINE + '</div>';
+    var btns = ctaBtns(text);
+    el.innerHTML = '<div class="ama-av32">' + AMA_AV + '</div><div class="cmsg-body"><div class="cbubble ama-b">' + linkify(fmt(text)) + '</div>' + btns + '<div class="cmsg-time">' + ts() + '</div>' + WA_LINE + '</div>';
     msgsEl.appendChild(el);
     end();
     return el;
