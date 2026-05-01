@@ -1217,14 +1217,28 @@
     document.querySelector('.cta-wrap').style.display     = 'none';
     document.getElementById('successOverlay').classList.add('show');
 
+    console.log('Paystack phone:', phone);
+
+    const paystackMetadata = {
+      custom_fields: [{ display_name: 'Restaurant Name', variable_name: 'restaurant_name', value: restaurantName }]
+    };
+
+    const paystackPayload = {
+      email,
+      first_name: firstName,
+      last_name:  lastName,
+      phone,
+      metadata:   paystackMetadata
+    };
+
+    console.log('Paystack payload:', paystackPayload);
+
     const paystackURL = PAYSTACK_URL
       + '?email='      + encodeURIComponent(email)
       + '&first_name=' + encodeURIComponent(firstName)
       + '&last_name='  + encodeURIComponent(lastName)
       + '&phone='      + encodeURIComponent(phone)
-      + '&metadata='   + encodeURIComponent(JSON.stringify({
-          custom_fields: [{ display_name: 'Restaurant Name', variable_name: 'restaurant_name', value: restaurantName }]
-        }));
+      + '&metadata='   + encodeURIComponent(JSON.stringify(paystackMetadata));
     setTimeout(() => { window.location.href = paystackURL; }, 1800);
   }
 </script>
