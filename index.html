@@ -886,7 +886,7 @@
 
     <div class="divider"></div>
 
-    <div class="features-heading">Platform Features</div>
+    <div class="features-heading">System Features</div>
     <div class="features-grid">
 
       <div class="feature-item">
@@ -940,6 +940,10 @@
       <div class="feature-item">
         <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#1a5c45" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         <span class="feature-text">Works offline — orders queue automatically when internet drops and sync the moment you reconnect. No lost sales.</span>
+      </div>
+      <div class="feature-item">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#1a5c45" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span class="feature-text">Create credit accounts for trusted customers and delivery platforms — track balances, orders on account and amounts owed.</span>
       </div>
 
     </div>
@@ -1204,7 +1208,15 @@
     document.querySelector('.cta-wrap').style.display     = 'none';
     document.getElementById('successOverlay').classList.add('show');
 
-    setTimeout(() => { window.location.href = PAYSTACK_URL; }, 1800);
+    const paystackParams = new URLSearchParams({
+      email:      email,
+      first_name: fullName,
+      phone:      phone,
+      metadata:   JSON.stringify({
+        custom_fields: [{ display_name: 'Restaurant Name', variable_name: 'restaurant_name', value: restaurantName }]
+      })
+    });
+    setTimeout(() => { window.location.href = PAYSTACK_URL + '?' + paystackParams.toString(); }, 1800);
   }
 </script>
 
