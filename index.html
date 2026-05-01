@@ -1233,34 +1233,10 @@
     document.querySelector('.cta-wrap').style.display     = 'none';
     document.getElementById('successOverlay').classList.add('show');
 
-    console.log('Paystack phone:', phone);
-
-    const restaurantNameValue = restaurantName;
-
-    const paystackPayload = {
-      email,
-      first_name: firstName,
-      last_name:  lastName,
-      phone,
-      metadata: {
-        custom_fields: [
-          {
-            display_name: "Restaurant Name",
-            variable_name: "restaurant_name",
-            value: restaurantNameValue
-          }
-        ]
-      }
-    };
-
-    console.log('Paystack payload:', paystackPayload);
-
     const paystackURL = PAYSTACK_URL
       + '?email='      + encodeURIComponent(email)
       + '&first_name=' + encodeURIComponent(firstName)
-      + '&last_name='  + encodeURIComponent(lastName)
-      + '&phone='      + encodeURIComponent(phone)
-      + '&metadata='   + encodeURIComponent(JSON.stringify(paystackPayload.metadata));
+      + '&last_name='  + encodeURIComponent(lastName);
     setTimeout(() => { window.location.href = paystackURL; }, 1800);
   }
 </script>
