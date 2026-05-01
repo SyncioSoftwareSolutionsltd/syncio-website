@@ -965,9 +965,14 @@
 
     <div class="form-grid">
       <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" placeholder="e.g. Abena Mensah" autocomplete="name" />
-        <span class="field-error" id="fullNameErr">Please enter your full name</span>
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" placeholder="e.g. Abena" autocomplete="given-name" />
+        <span class="field-error" id="firstNameErr">Please enter your first name</span>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" placeholder="e.g. Mensah" autocomplete="family-name" />
+        <span class="field-error" id="lastNameErr">Please enter your last name</span>
       </div>
       <div class="form-group">
         <label for="restaurantName">Restaurant Name</label>
@@ -1152,15 +1157,19 @@
   }
 
   async function handleProceed() {
-    const fullName       = document.getElementById('fullName').value.trim();
+    const firstName      = document.getElementById('firstName').value.trim();
+    const lastName       = document.getElementById('lastName').value.trim();
     const restaurantName = document.getElementById('restaurantName').value.trim();
     const email          = document.getElementById('email').value.trim();
-    const phone          = document.getElementById('phone').value.trim();
+    const rawPhone       = document.getElementById('phone').value.trim();
+    const phone          = rawPhone.startsWith('0') ? rawPhone.slice(1) : rawPhone;
 
     let valid = true;
 
-    if (!fullName)              { setFieldError('fullName',       'fullNameErr',       true);  valid = false; }
-    else                        { setFieldError('fullName',       'fullNameErr',       false); }
+    if (!firstName)             { setFieldError('firstName',      'firstNameErr',      true);  valid = false; }
+    else                        { setFieldError('firstName',      'firstNameErr',      false); }
+    if (!lastName)              { setFieldError('lastName',       'lastNameErr',       true);  valid = false; }
+    else                        { setFieldError('lastName',       'lastNameErr',       false); }
     if (!restaurantName)        { setFieldError('restaurantName', 'restaurantNameErr', true);  valid = false; }
     else                        { setFieldError('restaurantName', 'restaurantNameErr', false); }
     if (!validateEmail(email))  { setFieldError('email',          'emailErr',          true);  valid = false; }
@@ -1186,7 +1195,7 @@
     const ip = await getIP();
 
     const { error } = await db.from('tos_acceptances').insert({
-      full_name:         fullName,
+      full_name:         firstName + ' ' + lastName,
       restaurant_name:   restaurantName,
       email:             email,
       phone_number:      phone,
@@ -1208,15 +1217,15 @@
     document.querySelector('.cta-wrap').style.display     = 'none';
     document.getElementById('successOverlay').classList.add('show');
 
-    const paystackParams = new URLSearchParams({
-      email:      email,
-      first_name: fullName,
-      phone:      phone,
-      metadata:   JSON.stringify({
-        custom_fields: [{ display_name: 'Restaurant Name', variable_name: 'restaurant_name', value: restaurantName }]
-      })
-    });
-    setTimeout(() => { window.location.href = PAYSTACK_URL + '?' + paystackParams.toString(); }, 1800);
+    const paystackURL = PAYSTACK_URL
+      + '?email='      + encodeURIComponent(email)
+      + '&first_name=' + encodeURIComponent(firstName)
+      + '&last_name='  + encodeURIComponent(lastName)
+      + '&phone='      + encodeURIComponent(phone)
+      + '&metadata='   + encodeURIComponent(JSON.stringify({
+          custom_fields: [{ display_name: 'Restaurant Name', variable_name: 'restaurant_name', value: restaurantName }]
+        }));
+    setTimeout(() => { window.location.href = paystackURL; }, 1800);
   }
 </script>
 
