@@ -299,7 +299,15 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
     </li>
     <li><a href="/">Home</a></li>
     <li><a href="/#contact">Contact</a></li>
-    <li><a href="#">Resources</a></li>
+    <li class="has-dd">
+      <button class="dd-btn">
+        Resources
+        <svg class="dd-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="dd-panel">
+        <a href="/blog" class="dd-item">Blog and Updates</a>
+      </div>
+    </li>
   </ul>
 
   <div class="nav-right">
@@ -320,7 +328,7 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
   <span class="mob-link mob-sub">↳ Syncio Fleet, Coming Soon</span>
   <a href="/" class="mob-link">Home</a>
   <a href="/#contact" class="mob-link" onclick="closeMenu()">Contact</a>
-  <a href="#" class="mob-link" onclick="closeMenu()">Resources</a>
+  <a href="/blog" class="mob-link" onclick="closeMenu()">Blog and Updates</a>
   <a href="https://launch-restro.synciosolutions.com" class="btn btn-orange mob-cta" target="_blank" rel="noopener">Get Started</a>
 </div>
 
@@ -913,7 +921,7 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
       <a href="/#about">About</a>
       <a href="/#contact">Contact</a>
       <a href="/careers">Careers</a>
-      <a href="#">Resources</a>
+      <a href="/blog">Blog and Updates</a>
     </div>
 
     <div class="footer-col">
