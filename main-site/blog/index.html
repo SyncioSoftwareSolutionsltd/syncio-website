@@ -59,11 +59,12 @@ nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:1px s
 .logo-sub{font-size:.5rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
 
 .nav-center{display:flex;align-items:center;gap:2.5rem;list-style:none}
-.nav-center>li>a{font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);transition:color .2s}
+.nav-center>li{display:flex;align-items:center;line-height:1;padding:0;margin:0}
+.nav-center>li>a{display:flex;align-items:center;line-height:1;padding:0;margin:0;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);transition:color .2s}
 .nav-center>li>a:hover{color:#fff}
 
-.has-dd{position:relative;align-self:stretch;display:flex;align-items:center}
-.dd-btn{display:flex;align-items:center;gap:4px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;transition:color .2s;padding:0 0 8px}
+.has-dd{position:relative;display:flex;align-items:center;line-height:1;padding:0;margin:0}
+.dd-btn{display:flex;align-items:center;gap:4px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;transition:color .2s;padding:0;margin:0;line-height:1}
 .dd-btn:hover,.has-dd.dd-open .dd-btn{color:#fff}
 .dd-arrow{transition:transform .2s}
 .has-dd.dd-open .dd-arrow{transform:rotate(180deg)}
@@ -198,7 +199,15 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
     </li>
     <li><a href="/">Home</a></li>
     <li><a href="/#contact">Contact</a></li>
-    <li><a href="/blog">Resources</a></li>
+    <li class="has-dd">
+      <button class="dd-btn">
+        Resources
+        <svg class="dd-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="dd-panel">
+        <a href="/blog" class="dd-item">Blog and Updates</a>
+      </div>
+    </li>
   </ul>
 
   <div class="nav-right">
@@ -335,8 +344,8 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
 
     <div class="footer-col">
       <h4>Legal</h4>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
     </div>
   </div>
 

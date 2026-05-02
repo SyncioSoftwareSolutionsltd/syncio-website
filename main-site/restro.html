@@ -57,22 +57,22 @@ nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:1px s
 .logo-sub{font-size:.5rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
 
 .nav-center{display:flex;align-items:center;gap:2.5rem;list-style:none}
-.nav-center>li>a{font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);transition:color .2s}
+.nav-center>li{display:flex;align-items:center;line-height:1;padding:0;margin:0}
+.nav-center>li>a{display:flex;align-items:center;line-height:1;padding:0;margin:0;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);transition:color .2s}
 .nav-center>li>a:hover{color:#fff}
 
-.has-dd{position:relative;align-self:stretch;display:flex;align-items:center}
-.dd-btn{display:flex;align-items:center;gap:4px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;transition:color .2s;padding:0 0 8px}
+.has-dd{position:relative;display:flex;align-items:center;line-height:1;padding:0;margin:0}
+.dd-btn{display:flex;align-items:center;gap:4px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;transition:color .2s;padding:0;margin:0;line-height:1}
 .dd-btn:hover,.has-dd.dd-open .dd-btn{color:#fff}
 .dd-arrow{transition:transform .2s}
 .has-dd.dd-open .dd-arrow{transform:rotate(180deg)}
 
-.dd-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);min-width:240px;background:var(--navy-l);border:1px solid var(--border-d);border-radius:14px;padding:6px;box-shadow:0 24px 48px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.dd-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);min-width:230px;background:var(--navy-l);border:1px solid var(--border-d);border-radius:14px;padding:6px;box-shadow:0 24px 48px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
 .has-dd.dd-open .dd-panel{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
 
 .dd-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:9px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.8);transition:background .15s,color .15s}
 .dd-item:hover{background:rgba(255,255,255,.06);color:#fff}
 a.dd-item{cursor:pointer}
-.dd-item.active{color:#fff;background:rgba(249,115,22,.12)}
 
 .tag-live{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:#10B981;color:#fff;padding:2px 7px;border-radius:4px}
 .tag-soon{font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;background:rgba(100,116,139,.2);color:var(--slate);padding:2px 7px;border-radius:4px}
@@ -926,8 +926,8 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
 
     <div class="footer-col">
       <h4>Legal</h4>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
     </div>
   </div>
 
