@@ -154,15 +154,15 @@ a.dd-item{cursor:pointer}
 /* ═══════════════════════════════
    RESTRO SPOTLIGHT
 ═══════════════════════════════ */
-.restro{background:var(--navy)}
-.restro .h2{color:#fff;margin-top:.5rem;margin-bottom:.75rem}
+.restro{background:#F8FAFC}
+.restro .h2{color:#0F172A;margin-top:.5rem;margin-bottom:.75rem}
 .restro .sub{font-size:1rem;color:var(--slate);max-width:580px;margin-bottom:4rem}
 .feats2x2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:3rem}
-.feat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:2rem;transition:background .2s,transform .2s}
-.feat-card:hover{background:rgba(255,255,255,.07);transform:translateY(-3px)}
+.feat-card{background:#fff;border:1px solid var(--border-l);border-radius:16px;padding:2rem;transition:box-shadow .25s,transform .2s}
+.feat-card:hover{box-shadow:0 12px 40px rgba(0,0,0,.08);transform:translateY(-3px)}
 .icon-dark{width:44px;height:44px;background:rgba(249,115,22,.14);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1.125rem}
 .icon-dark svg{width:20px;height:20px;color:var(--orange)}
-.feat-card h3{font-size:1.0625rem;font-weight:700;color:#fff;margin-bottom:.625rem}
+.feat-card h3{font-size:1.0625rem;font-weight:700;color:#0F172A;margin-bottom:.625rem}
 .feat-card p{font-size:.875rem;color:var(--slate);line-height:1.72}
 
 /* ═══════════════════════════════
@@ -208,10 +208,12 @@ a.dd-item{cursor:pointer}
 /* ═══════════════════════════════
    FINAL CTA
 ═══════════════════════════════ */
-.final-cta{background:var(--navy);text-align:center}
+.final-cta{background:#F97316;text-align:center}
 .final-cta h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.08;color:#fff;max-width:640px;margin:0 auto 1.25rem}
-.final-cta .sub{font-size:1.0625rem;color:var(--slate);max-width:520px;margin:0 auto 2.75rem}
+.final-cta .sub{font-size:1.0625rem;color:#fff;max-width:520px;margin:0 auto 2.75rem}
 .final-cta .btn-group{justify-content:center}
+.final-cta .btn-orange{background:#fff;color:var(--orange);border-color:#fff}
+.final-cta .btn-orange:hover{background:#FFF7ED;border-color:#FFF7ED;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
 
 /* ═══════════════════════════════
    FOOTER
@@ -573,7 +575,7 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
     </div>
     <div class="btn-group">
       <a href="https://launch-restro.synciosolutions.com" class="btn btn-orange" target="_blank" rel="noopener">Get Started with Restro</a>
-      <a href="https://calendar.app.google/tKoCecXjgFB6zfyy7" class="btn btn-white-out" target="_blank" rel="noopener">Book a Demo</a>
+      <a href="https://calendar.app.google/tKoCecXjgFB6zfyy7" class="btn btn-dark-out" target="_blank" rel="noopener">Book a Demo</a>
     </div>
   </div>
 </section>
