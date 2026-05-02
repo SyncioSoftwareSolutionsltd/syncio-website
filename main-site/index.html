@@ -63,14 +63,14 @@ nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:1px s
 .nav-center>li>a{font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);transition:color .2s}
 .nav-center>li>a:hover{color:#fff}
 
-.has-dd{position:relative}
-.dd-btn{display:flex;align-items:center;gap:4px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;transition:color .2s;padding:0}
-.dd-btn:hover,.has-dd:hover .dd-btn{color:#fff}
+.has-dd{position:relative;align-self:stretch;display:flex;align-items:center}
+.dd-btn{display:flex;align-items:center;gap:4px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;transition:color .2s;padding:0 0 8px}
+.dd-btn:hover,.has-dd.dd-open .dd-btn{color:#fff}
 .dd-arrow{transition:transform .2s}
-.has-dd:hover .dd-arrow{transform:rotate(180deg)}
+.has-dd.dd-open .dd-arrow{transform:rotate(180deg)}
 
-.dd-panel{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:230px;background:var(--navy-l);border:1px solid var(--border-d);border-radius:14px;padding:6px;box-shadow:0 24px 48px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
-.has-dd:hover .dd-panel{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.dd-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);min-width:230px;background:var(--navy-l);border:1px solid var(--border-d);border-radius:14px;padding:6px;box-shadow:0 24px 48px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.has-dd.dd-open .dd-panel{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
 
 .dd-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:9px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.8);transition:background .15s,color .15s}
 .dd-item:hover{background:rgba(255,255,255,.06);color:#fff}
@@ -154,7 +154,7 @@ a.dd-item{cursor:pointer}
 /* ═══════════════════════════════
    RESTRO SPOTLIGHT
 ═══════════════════════════════ */
-.restro{background:#F8FAFC}
+.restro{background:#F9FAFB}
 .restro .h2{color:#0F172A;margin-top:.5rem;margin-bottom:.75rem}
 .restro .sub{font-size:1rem;color:var(--slate);max-width:580px;margin-bottom:4rem}
 .feats2x2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:3rem}
@@ -179,7 +179,7 @@ a.dd-item{cursor:pointer}
 /* ═══════════════════════════════
    EARLY ACCESS
 ═══════════════════════════════ */
-.early{background:var(--card)}
+.early{background:#F9FAFB}
 .early .h2{color:var(--navy);max-width:680px;margin-bottom:1rem}
 .early .sub{font-size:1rem;color:var(--slate);max-width:540px;margin-bottom:3.5rem}
 .access-form{background:#fff;border:1px solid var(--border-l);border-radius:20px;padding:2.5rem;max-width:520px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
@@ -208,12 +208,10 @@ a.dd-item{cursor:pointer}
 /* ═══════════════════════════════
    FINAL CTA
 ═══════════════════════════════ */
-.final-cta{background:#F97316;text-align:center}
-.final-cta h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.08;color:#fff;max-width:640px;margin:0 auto 1.25rem}
-.final-cta .sub{font-size:1.0625rem;color:#fff;max-width:520px;margin:0 auto 2.75rem}
+.final-cta{background:#FFFFFF;text-align:center}
+.final-cta h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.08;color:var(--navy);max-width:640px;margin:0 auto 1.25rem;border-left:4px solid var(--orange);padding-left:1.25rem}
+.final-cta .sub{font-size:1.0625rem;color:var(--slate);max-width:520px;margin:0 auto 2.75rem}
 .final-cta .btn-group{justify-content:center}
-.final-cta .btn-orange{background:#fff;color:var(--orange);border-color:#fff}
-.final-cta .btn-orange:hover{background:#FFF7ED;border-color:#FFF7ED;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
 
 /* ═══════════════════════════════
    FOOTER
@@ -269,7 +267,7 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
 /* ═══════════════════════════════
    VIDEO SECTION
 ═══════════════════════════════ */
-.video-section{background:#F8FAFC}
+.video-section{background:#F9FAFB}
 .video-section .container{text-align:center}
 .video-section .h2{color:#0F172A;margin-top:.5rem;margin-bottom:1rem}
 .video-sub{font-size:1rem;color:#64748B;max-width:560px;margin:0 auto 3rem}
@@ -308,7 +306,7 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
         <span class="dd-item">Syncio Fleet <span class="tag-soon">Coming Soon</span></span>
       </div>
     </li>
-    <li><a href="#about">About</a></li>
+    <li><a href="/">Home</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#">Resources</a></li>
   </ul>
@@ -329,7 +327,7 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
   <span class="mob-link mob-sub">↳ Syncio Gym — Coming Soon</span>
   <span class="mob-link mob-sub">↳ Syncio Retail — Coming Soon</span>
   <span class="mob-link mob-sub">↳ Syncio Fleet — Coming Soon</span>
-  <a href="#about" class="mob-link" onclick="closeMenu()">About</a>
+  <a href="/" class="mob-link">Home</a>
   <a href="#contact" class="mob-link" onclick="closeMenu()">Contact</a>
   <a href="#" class="mob-link" onclick="closeMenu()">Resources</a>
   <a href="https://launch-restro.synciosolutions.com" class="btn btn-orange mob-cta" target="_blank" rel="noopener">Get Started</a>
@@ -695,13 +693,13 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
     <p class="sub">Join the restaurants already using Restro, or get early access to the next Syncio product for your industry.</p>
     <div class="btn-group">
       <a href="https://launch-restro.synciosolutions.com" class="btn btn-orange" target="_blank" rel="noopener">Get Started with Restro</a>
-      <a href="https://calendar.app.google/tKoCecXjgFB6zfyy7" class="btn btn-white-out" target="_blank" rel="noopener">Book a Demo</a>
+      <a href="https://calendar.app.google/tKoCecXjgFB6zfyy7" class="btn btn-dark-out" target="_blank" rel="noopener">Book a Demo</a>
     </div>
   </div>
 </section>
 
 <!-- ══════════════ CONTACT ══════════════ -->
-<section class="contact-section" id="contact" style="background:#F8FAFC">
+<section class="contact-section" id="contact" style="background:#F9FAFB">
   <div class="container" style="max-width:640px;text-align:center">
     <span class="eyebrow eyebrow-slate">Contact</span>
     <h2 class="h2" style="color:var(--navy);margin-top:.5rem;margin-bottom:1rem">Get in Touch</h2>
@@ -773,6 +771,13 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
   const SUPABASE_URL = 'https://gtiypqkmdgmbrqwgearn.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0aXlwcWttZGdtYnJxd2dlYXJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2NTEzOTEsImV4cCI6MjA5MzIyNzM5MX0.COHvDQba60_f1iDo_jgiW02mJ-CSA1h1-DUpPGmipf8';
   const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  /* ── Dropdown hover with 400ms close delay ── */
+  document.querySelectorAll('.has-dd').forEach(li => {
+    let timer;
+    li.addEventListener('mouseenter', () => { clearTimeout(timer); li.classList.add('dd-open'); });
+    li.addEventListener('mouseleave', () => { timer = setTimeout(() => li.classList.remove('dd-open'), 400); });
+  });
 
   /* ── Mobile menu ── */
   const burger = document.getElementById('hamburger');

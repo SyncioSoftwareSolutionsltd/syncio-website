@@ -60,14 +60,14 @@ nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:1px s
 .nav-center>li>a{font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);transition:color .2s}
 .nav-center>li>a:hover{color:#fff}
 
-.has-dd{position:relative}
-.dd-btn{display:flex;align-items:center;gap:4px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;transition:color .2s;padding:0}
-.dd-btn:hover,.has-dd:hover .dd-btn{color:#fff}
+.has-dd{position:relative;align-self:stretch;display:flex;align-items:center}
+.dd-btn{display:flex;align-items:center;gap:4px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;transition:color .2s;padding:0 0 8px}
+.dd-btn:hover,.has-dd.dd-open .dd-btn{color:#fff}
 .dd-arrow{transition:transform .2s}
-.has-dd:hover .dd-arrow{transform:rotate(180deg)}
+.has-dd.dd-open .dd-arrow{transform:rotate(180deg)}
 
-.dd-panel{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:240px;background:var(--navy-l);border:1px solid var(--border-d);border-radius:14px;padding:6px;box-shadow:0 24px 48px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
-.has-dd:hover .dd-panel{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.dd-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);min-width:240px;background:var(--navy-l);border:1px solid var(--border-d);border-radius:14px;padding:6px;box-shadow:0 24px 48px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.has-dd.dd-open .dd-panel{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
 
 .dd-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:9px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.8);transition:background .15s,color .15s}
 .dd-item:hover{background:rgba(255,255,255,.06);color:#fff}
@@ -127,7 +127,7 @@ a.dd-item{cursor:pointer}
 /* ═══════════════════════════════
    SOLUTION INTRO
 ═══════════════════════════════ */
-.intro{background:var(--grey)}
+.intro{background:#F9FAFB}
 .intro .h2{color:var(--navy);max-width:600px;margin-top:.5rem;margin-bottom:1.25rem}
 .intro-sub{font-size:1.0625rem;color:var(--slate);max-width:680px;line-height:1.75;margin-bottom:4rem}
 .stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
@@ -156,7 +156,7 @@ a.dd-item{cursor:pointer}
 /* ═══════════════════════════════
    OFFLINE
 ═══════════════════════════════ */
-.offline{background:#F8FAFC}
+.offline{background:#F9FAFB}
 .offline .h2{color:#0F172A;max-width:680px;margin-top:.5rem;margin-bottom:1.25rem}
 .offline .offline-sub{font-size:1.0625rem;color:var(--slate);max-width:640px;line-height:1.75;margin-bottom:3.5rem}
 .offline-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
@@ -189,7 +189,7 @@ a.dd-item{cursor:pointer}
 /* ═══════════════════════════════
    HOW IT WORKS
 ═══════════════════════════════ */
-.how{background:var(--grey)}
+.how{background:#F9FAFB}
 .how .h2{color:var(--navy);max-width:600px;margin-top:.5rem;margin-bottom:4rem}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;position:relative}
 .steps::before{content:'';position:absolute;top:28px;left:calc(16.666% + 1.25rem);right:calc(16.666% + 1.25rem);height:2px;background:linear-gradient(90deg,var(--orange),rgba(249,115,22,.2));z-index:0}
@@ -201,13 +201,11 @@ a.dd-item{cursor:pointer}
 /* ═══════════════════════════════
    BOOK A DEMO
 ═══════════════════════════════ */
-.demo{background:#F97316;text-align:center}
-.demo .h2{color:#fff;max-width:620px;margin:0 auto 1rem}
-.demo .demo-sub{font-size:1.0625rem;color:#fff;max-width:520px;margin:0 auto 2.75rem;line-height:1.75}
+.demo{background:#FFFFFF;text-align:center}
+.demo .h2{color:var(--navy);max-width:620px;margin:0 auto 1rem;border-left:4px solid var(--orange);padding-left:1.25rem}
+.demo .demo-sub{font-size:1.0625rem;color:var(--slate);max-width:520px;margin:0 auto 2.75rem;line-height:1.75}
 .demo .btn-group{justify-content:center;flex-direction:column;align-items:center;gap:1rem}
-.demo .btn-orange{background:#fff;color:var(--orange);border-color:#fff}
-.demo .btn-orange:hover{background:#FFF7ED;border-color:#FFF7ED;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
-.demo .demo-alt{font-size:.875rem;color:rgba(255,255,255,.9);margin-top:.5rem}
+.demo .demo-alt{font-size:.875rem;color:var(--slate);margin-top:.5rem}
 
 /* ═══════════════════════════════
    FAQ
@@ -299,7 +297,7 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
         <span class="dd-item">Syncio Fleet <span class="tag-soon">Coming Soon</span></span>
       </div>
     </li>
-    <li><a href="/#about">About</a></li>
+    <li><a href="/">Home</a></li>
     <li><a href="/#contact">Contact</a></li>
     <li><a href="#">Resources</a></li>
   </ul>
@@ -320,7 +318,7 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
   <span class="mob-link mob-sub">↳ Syncio Gym, Coming Soon</span>
   <span class="mob-link mob-sub">↳ Syncio Retail, Coming Soon</span>
   <span class="mob-link mob-sub">↳ Syncio Fleet, Coming Soon</span>
-  <a href="/#about" class="mob-link" onclick="closeMenu()">About</a>
+  <a href="/" class="mob-link">Home</a>
   <a href="/#contact" class="mob-link" onclick="closeMenu()">Contact</a>
   <a href="#" class="mob-link" onclick="closeMenu()">Resources</a>
   <a href="https://launch-restro.synciosolutions.com" class="btn btn-orange mob-cta" target="_blank" rel="noopener">Get Started</a>
@@ -816,7 +814,7 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
     <p class="demo-sub">Book a free 30-minute call with our team. We will walk you through the system and answer all your questions.</p>
     <div class="btn-group">
       <a href="https://calendar.app.google/tKoCecXjgFB6zfyy7" class="btn btn-orange" style="font-size:1.0625rem;padding:1rem 2.25rem" target="_blank" rel="noopener">Book a Demo</a>
-      <p class="demo-alt">Or get started directly &nbsp;<a href="https://launch-restro.synciosolutions.com" class="btn btn-white-out btn-sm" target="_blank" rel="noopener">Get Started</a></p>
+      <p class="demo-alt">Or get started &nbsp;<a href="https://launch-restro.synciosolutions.com" class="btn btn-dark-out btn-sm" target="_blank" rel="noopener">Get Started</a></p>
     </div>
   </div>
 </section>
@@ -913,8 +911,8 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
       <h4>Company</h4>
       <a href="/#about">About</a>
       <a href="/#contact">Contact</a>
+      <a href="/careers">Careers</a>
       <a href="#">Resources</a>
-      <a href="#">Careers</a>
     </div>
 
     <div class="footer-col">
@@ -930,6 +928,13 @@ footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 
 </footer>
 
 <script>
+  /* ── Dropdown hover with 400ms close delay ── */
+  document.querySelectorAll('.has-dd').forEach(li => {
+    let timer;
+    li.addEventListener('mouseenter', () => { clearTimeout(timer); li.classList.add('dd-open'); });
+    li.addEventListener('mouseleave', () => { timer = setTimeout(() => li.classList.remove('dd-open'), 400); });
+  });
+
   /* ── Mobile menu ── */
   const burger = document.getElementById('hamburger');
   const mobNav = document.getElementById('mobNav');
