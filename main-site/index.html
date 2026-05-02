@@ -1291,6 +1291,7 @@ IMPORTANT RULES:
   function tryPlay(){var p=v.play();if(p&&typeof p.catch==='function')p.catch(function(){});}
   v.addEventListener('canplay',tryPlay,{once:true});
   tryPlay();
+  v.addEventListener('timeupdate',function(){if(v.duration&&v.currentTime>=v.duration-0.3){v.currentTime=0;tryPlay();}});
 })();
 </script>
 </body>
