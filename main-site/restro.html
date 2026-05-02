@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restro — Ghana's Restaurant Operating System | Syncio</title>
+<meta name="description" content="Restro gives you complete visibility and control over every order, every payment, every staff member and every cedi — from one system on any device you already own.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;background:#FFFFFF;color:#0F172A;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none}
+img{max-width:100%;display:block}
+
+:root{
+  --navy:#0F172A;
+  --navy-l:#1E293B;
+  --white:#FFFFFF;
+  --orange:#F97316;
+  --orange-d:#EA6C0A;
+  --slate:#64748B;
+  --grey:#F8FAFC;
+  --border-d:rgba(255,255,255,0.07);
+  --border-l:#E2E8F0;
+}
+
+.container{max-width:1180px;margin:0 auto}
+section{padding:100px 5%}
+
+/* ── TYPOGRAPHY ── */
+.eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem;display:block}
+.h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:800;line-height:1.08;letter-spacing:-.03em}
+.h2{font-size:clamp(1.875rem,3.5vw,2.875rem);font-weight:800;line-height:1.12;letter-spacing:-.025em}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-family:'Montserrat',sans-serif;font-size:.9375rem;font-weight:600;padding:.875rem 1.875rem;border-radius:8px;border:2px solid transparent;cursor:pointer;transition:background .2s,transform .15s,box-shadow .2s,border-color .2s,color .2s;white-space:nowrap}
+.btn-sm{font-size:.875rem;padding:.6875rem 1.375rem}
+.btn-orange{background:var(--orange);color:#fff;border-color:var(--orange)}
+.btn-orange:hover{background:var(--orange-d);border-color:var(--orange-d);transform:translateY(-2px);box-shadow:0 8px 24px rgba(249,115,22,.3)}
+.btn-white-out{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+.btn-white-out:hover{border-color:rgba(255,255,255,.7);background:rgba(255,255,255,.05);transform:translateY(-2px)}
+.btn-dark-out{background:transparent;color:var(--navy);border-color:var(--border-l)}
+.btn-dark-out:hover{border-color:var(--slate);transform:translateY(-2px)}
+.btn-group{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+
+/* ═══════════════════════════════
+   NAV
+═══════════════════════════════ */
+nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:1px solid var(--border-d);height:72px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+
+.logo{display:flex;flex-direction:column;gap:2px;flex-shrink:0}
+.logo-mark{font-size:1.5rem;font-weight:800;letter-spacing:-.025em;color:#fff;line-height:1}
+.logo-mark span{color:var(--orange)}
+.logo-sub{font-size:.5rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
+
+.nav-center{display:flex;align-items:center;gap:2.5rem;list-style:none}
+.nav-center>li>a{font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);transition:color .2s}
+.nav-center>li>a:hover{color:#fff}
+
+.has-dd{position:relative}
+.dd-btn{display:flex;align-items:center;gap:4px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.7);background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;transition:color .2s;padding:0}
+.dd-btn:hover,.has-dd:hover .dd-btn{color:#fff}
+.dd-arrow{transition:transform .2s}
+.has-dd:hover .dd-arrow{transform:rotate(180deg)}
+
+.dd-panel{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:240px;background:var(--navy-l);border:1px solid var(--border-d);border-radius:14px;padding:6px;box-shadow:0 24px 48px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.has-dd:hover .dd-panel{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+
+.dd-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:9px;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.8);transition:background .15s,color .15s}
+.dd-item:hover{background:rgba(255,255,255,.06);color:#fff}
+a.dd-item{cursor:pointer}
+.dd-item.active{color:#fff;background:rgba(249,115,22,.12)}
+
+.tag-live{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:#10B981;color:#fff;padding:2px 7px;border-radius:4px}
+.tag-soon{font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;background:rgba(100,116,139,.2);color:var(--slate);padding:2px 7px;border-radius:4px}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;flex-shrink:0}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+.mob-nav{display:none;position:fixed;inset:72px 0 0 0;background:var(--navy);border-top:1px solid var(--border-d);z-index:99;padding:1.5rem 5%;overflow-y:auto}
+.mob-nav.open{display:block}
+.mob-link{display:block;padding:.875rem 0;font-size:1rem;font-weight:500;color:rgba(255,255,255,.8);border-bottom:1px solid var(--border-d)}
+.mob-link:last-of-type{border:none}
+.mob-sub{font-size:.875rem;color:var(--slate);padding-left:1rem}
+.mob-cta{display:block;margin-top:1.5rem;text-align:center}
+
+/* ═══════════════════════════════
+   HERO
+═══════════════════════════════ */
+.hero{background:var(--navy);padding:130px 5% 110px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(249,115,22,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(249,115,22,.04) 1px,transparent 1px);background-size:64px 64px}
+.hero-glow{position:absolute;top:-160px;right:-80px;width:700px;height:700px;background:radial-gradient(circle,rgba(249,115,22,.1) 0%,transparent 65%);pointer-events:none}
+.hero-glow2{position:absolute;bottom:-180px;left:-80px;width:480px;height:480px;background:radial-gradient(circle,rgba(99,102,241,.06) 0%,transparent 65%);pointer-events:none}
+.hero .container{position:relative;z-index:1;max-width:1100px}
+.hero h1{color:#fff;margin-bottom:1.5rem}
+.hero .hero-sub{font-size:1.125rem;color:var(--slate);max-width:640px;line-height:1.8;margin-bottom:2.75rem}
+
+.hero-mockup{margin-top:3.5rem;border-radius:16px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.06)}
+.browser-chrome{background:#1E293B;padding:.6rem 1rem;display:flex;align-items:center;gap:.75rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.browser-dots{display:flex;gap:6px}
+.browser-dots span{display:inline-block;width:12px;height:12px;border-radius:50%}
+.browser-dots span:nth-child(1){background:#FC5F5F}
+.browser-dots span:nth-child(2){background:#FBBC2E}
+.browser-dots span:nth-child(3){background:#2AC840}
+.browser-bar{flex:1;height:24px;background:rgba(255,255,255,.06);border-radius:6px}
+.hero-mockup>img{width:100%;display:block}
+
+/* ═══════════════════════════════
+   PAIN POINTS
+═══════════════════════════════ */
+.pain{background:#FFFFFF}
+.pain .h2{color:var(--navy);max-width:640px;margin-top:.5rem;margin-bottom:3.5rem}
+.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.pain-card{background:#fff;border:1px solid var(--border-l);border-left:4px solid var(--orange);border-radius:16px;padding:2rem;display:flex;gap:1.25rem;align-items:flex-start;box-shadow:0 2px 12px rgba(0,0,0,.05);transition:box-shadow .25s,transform .25s}
+.pain-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.09);transform:translateY(-4px)}
+.pain-icon{width:44px;height:44px;background:rgba(249,115,22,.08);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.pain-icon svg{width:20px;height:20px;color:var(--orange)}
+.pain-card h3{font-size:1.0625rem;font-weight:700;color:var(--navy);margin-bottom:.625rem}
+.pain-card p{font-size:.9rem;color:var(--slate);line-height:1.72}
+
+/* ═══════════════════════════════
+   SOLUTION INTRO
+═══════════════════════════════ */
+.intro{background:var(--grey)}
+.intro .h2{color:var(--navy);max-width:600px;margin-top:.5rem;margin-bottom:1.25rem}
+.intro-sub{font-size:1.0625rem;color:var(--slate);max-width:680px;line-height:1.75;margin-bottom:4rem}
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.stat-item{text-align:center;background:#fff;border:1px solid var(--border-l);border-radius:16px;padding:2rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.stat-val{font-size:2.5rem;font-weight:800;color:var(--orange);letter-spacing:-.03em;line-height:1;margin-bottom:.5rem}
+.stat-lbl{font-size:.8125rem;font-weight:600;color:var(--slate);text-transform:uppercase;letter-spacing:.06em}
+
+/* ═══════════════════════════════
+   FEATURES
+═══════════════════════════════ */
+.features{background:#FFFFFF}
+.features .h2{color:var(--navy);max-width:600px;margin-top:.5rem;margin-bottom:5rem}
+.feat-block{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-bottom:6rem}
+.feat-block:last-child{margin-bottom:0}
+.feat-block.reverse .feat-img{order:2}
+.feat-block.reverse .feat-text{order:1}
+.feat-img-wrap{border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.05)}
+.feat-img-wrap img{width:100%;display:block}
+.feat-text-tag{font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:.875rem;display:block}
+.feat-text h3{font-size:1.625rem;font-weight:800;color:var(--navy);line-height:1.2;letter-spacing:-.02em;margin-bottom:1rem}
+.feat-text p{font-size:.9375rem;color:var(--slate);line-height:1.78;margin-bottom:1.5rem}
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:.625rem}
+.feat-list li{display:flex;align-items:flex-start;gap:.625rem;font-size:.875rem;color:#334155;line-height:1.6}
+.feat-list li::before{content:'';display:inline-block;width:18px;height:18px;min-width:18px;background:rgba(249,115,22,.1);border-radius:50%;position:relative;top:1px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23F97316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
+
+/* ═══════════════════════════════
+   OFFLINE
+═══════════════════════════════ */
+.offline{background:var(--navy)}
+.offline .h2{color:#fff;max-width:680px;margin-top:.5rem;margin-bottom:1.25rem}
+.offline .offline-sub{font-size:1.0625rem;color:var(--slate);max-width:640px;line-height:1.75;margin-bottom:3.5rem}
+.offline-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.offline-col{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:2rem;transition:background .2s,transform .2s}
+.offline-col:hover{background:rgba(255,255,255,.07);transform:translateY(-3px)}
+.offline-col-icon{width:44px;height:44px;background:rgba(249,115,22,.14);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1.125rem}
+.offline-col-icon svg{width:20px;height:20px;color:var(--orange)}
+.offline-col h3{font-size:1.0625rem;font-weight:700;color:#fff;margin-bottom:.625rem}
+.offline-col p{font-size:.875rem;color:var(--slate);line-height:1.72}
+
+/* ═══════════════════════════════
+   PRICING
+═══════════════════════════════ */
+.pricing{background:#FFFFFF}
+.pricing .h2{color:var(--navy);max-width:600px;margin-top:.5rem;margin-bottom:4rem}
+.price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;max-width:760px}
+.price-card{border:2px solid var(--border-l);border-radius:20px;padding:2.5rem;background:#fff;transition:box-shadow .25s,transform .25s;position:relative}
+.price-card:hover{box-shadow:0 20px 56px rgba(0,0,0,.09);transform:translateY(-4px)}
+.price-card.featured{border-color:var(--orange)}
+.price-badge{position:absolute;top:-14px;right:1.5rem;background:var(--orange);color:#fff;font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:5px 14px;border-radius:100px}
+.price-label{font-size:.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--slate);margin-bottom:1.25rem}
+.price-amount{font-size:3rem;font-weight:800;color:var(--navy);letter-spacing:-.04em;line-height:1;margin-bottom:.375rem}
+.price-period{font-size:.875rem;font-weight:500;color:var(--slate);margin-bottom:.625rem}
+.price-caption{font-size:.8125rem;font-weight:600;color:var(--orange);margin-bottom:1.5rem}
+.price-setup{font-size:.875rem;color:var(--slate);margin-bottom:2rem;padding-top:1rem;border-top:1px solid var(--border-l)}
+.price-setup strong{color:var(--navy)}
+.price-note{font-size:.8125rem;color:var(--slate);text-align:center;margin-top:2rem;max-width:760px}
+.price-note + .price-note{margin-top:.5rem}
+
+/* ═══════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════ */
+.how{background:var(--grey)}
+.how .h2{color:var(--navy);max-width:600px;margin-top:.5rem;margin-bottom:4rem}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;position:relative}
+.steps::before{content:'';position:absolute;top:28px;left:calc(16.666% + 1.25rem);right:calc(16.666% + 1.25rem);height:2px;background:linear-gradient(90deg,var(--orange),rgba(249,115,22,.2));z-index:0}
+.step{text-align:center;position:relative;z-index:1}
+.step-num{width:56px;height:56px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:800;color:#fff;margin:0 auto 1.5rem;box-shadow:0 8px 24px rgba(249,115,22,.3)}
+.step h3{font-size:1.0625rem;font-weight:700;color:var(--navy);margin-bottom:.75rem}
+.step p{font-size:.9rem;color:var(--slate);line-height:1.72}
+
+/* ═══════════════════════════════
+   BOOK A DEMO
+═══════════════════════════════ */
+.demo{background:var(--navy);text-align:center}
+.demo .h2{color:#fff;max-width:620px;margin:0 auto 1rem}
+.demo .demo-sub{font-size:1.0625rem;color:var(--slate);max-width:520px;margin:0 auto 2.75rem;line-height:1.75}
+.demo .btn-group{justify-content:center;flex-direction:column;align-items:center;gap:1rem}
+.demo .demo-alt{font-size:.875rem;color:var(--slate);margin-top:.5rem}
+
+/* ═══════════════════════════════
+   FAQ
+═══════════════════════════════ */
+.faq{background:#FFFFFF}
+.faq .h2{color:var(--navy);max-width:600px;margin-top:.5rem;margin-bottom:3.5rem}
+.faq-list{max-width:760px;display:flex;flex-direction:column;gap:1rem}
+.faq-item{border:1px solid var(--border-l);border-radius:14px;overflow:hidden;background:#fff;transition:box-shadow .2s}
+.faq-item.open{box-shadow:0 8px 32px rgba(0,0,0,.07)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.25rem 1.5rem;cursor:pointer;font-size:1rem;font-weight:600;color:var(--navy);-webkit-user-select:none;user-select:none;transition:color .15s}
+.faq-q:hover{color:var(--orange)}
+.faq-arrow{flex-shrink:0;width:20px;height:20px;transition:transform .2s;color:var(--slate)}
+.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--orange)}
+.faq-a{display:none;padding:0 1.5rem 1.25rem;font-size:.9375rem;color:var(--slate);line-height:1.75}
+.faq-item.open .faq-a{display:block}
+
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+footer{background:var(--navy);border-top:1px solid var(--border-d);padding:5rem 5% 2.5rem}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:3rem;padding-bottom:4rem;border-bottom:1px solid var(--border-d);margin-bottom:2rem}
+.footer-brand .logo-mark{font-size:1.375rem}
+.footer-tag{font-size:.875rem;color:var(--slate);margin-top:.875rem;line-height:1.65}
+.footer-contact{margin-top:1.5rem;display:flex;flex-direction:column;gap:.625rem}
+.footer-contact a{display:flex;align-items:center;gap:.5rem;font-size:.8125rem;color:var(--slate);transition:color .2s}
+.footer-contact a:hover{color:#fff}
+.footer-contact a svg{width:14px;height:14px;flex-shrink:0}
+.footer-col h4{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:1.5rem}
+.footer-col a{display:block;font-size:.875rem;color:var(--slate);margin-bottom:.75rem;transition:color .2s}
+.footer-col a:hover{color:#fff}
+.footer-btm{text-align:center;font-size:.8125rem;color:var(--slate)}
+
+/* ═══════════════════════════════
+   SCROLL ANIMATIONS
+═══════════════════════════════ */
+.animate-fade{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.animate-fade.in-view{opacity:1;transform:translateY(0)}
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media(max-width:1024px){
+  .stats-strip{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2.5rem}
+  .feat-block{gap:3rem}
+}
+@media(max-width:768px){
+  section{padding:72px 5%}
+  .hero{padding:100px 5% 80px}
+  .nav-center,.nav-right{display:none}
+  .hamburger{display:flex}
+  .pain-grid,.price-grid,.offline-cols,.steps,.feat-block,.feat-block.reverse{grid-template-columns:1fr}
+  .feat-block .feat-img{order:1 !important}
+  .feat-block .feat-text{order:2 !important}
+  .feat-block.reverse .feat-img{order:1 !important}
+  .feat-block.reverse .feat-text{order:2 !important}
+  .steps::before{display:none}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  .features .h2{margin-bottom:3rem}
+  .feat-block{margin-bottom:4rem}
+}
+@media(max-width:480px){
+  .btn-group{flex-direction:column;align-items:stretch}
+  .btn-group .btn{width:100%;justify-content:center}
+  .stats-strip{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+  <a href="/" class="logo">
+    <span class="logo-mark">SYNC<span>IO</span></span>
+    <span class="logo-sub">Software Solutions Ltd</span>
+  </a>
+
+  <ul class="nav-center">
+    <li class="has-dd">
+      <button class="dd-btn">
+        Products
+        <svg class="dd-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="dd-panel">
+        <a href="/restro" class="dd-item active">Restro <span class="tag-live">Live</span></a>
+        <span class="dd-item">Syncio Salon <span class="tag-soon">Coming Soon</span></span>
+        <span class="dd-item">Syncio Gym <span class="tag-soon">Coming Soon</span></span>
+        <span class="dd-item">Syncio Retail <span class="tag-soon">Coming Soon</span></span>
+        <span class="dd-item">Syncio Fleet <span class="tag-soon">Coming Soon</span></span>
+      </div>
+    </li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#contact">Contact</a></li>
+    <li><a href="#">Resources</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <a href="https://launch-restro.synciosolutions.com" class="btn btn-orange btn-sm" target="_blank" rel="noopener">Get Started</a>
+  </div>
+
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mob-nav" id="mobNav">
+  <span class="mob-link" style="color:rgba(255,255,255,.4);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding-bottom:.5rem">Products</span>
+  <a href="/restro" class="mob-link mob-sub" style="color:#fff;">↳ Restro &nbsp;<span class="tag-live">Live</span></a>
+  <span class="mob-link mob-sub">↳ Syncio Salon — Coming Soon</span>
+  <span class="mob-link mob-sub">↳ Syncio Gym — Coming Soon</span>
+  <span class="mob-link mob-sub">↳ Syncio Retail — Coming Soon</span>
+  <span class="mob-link mob-sub">↳ Syncio Fleet — Coming Soon</span>
+  <a href="/#about" class="mob-link" onclick="closeMenu()">About</a>
+  <a href="/#contact" class="mob-link" onclick="closeMenu()">Contact</a>
+  <a href="#" class="mob-link" onclick="closeMenu()">Resources</a>
+  <a href="https://launch-restro.synciosolutions.com" class="btn btn-orange mob-cta" target="_blank" rel="noopener">Get Started</a>
+</div>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="container">
+    <span class="eyebrow">Ghana's Restaurant Operating System</span>
+    <h1 class="h1">Stop Running Your<br>Restaurant on<br>Guesswork</h1>
+    <p class="hero-sub">Restro gives you complete visibility and control over every order, every payment, every staff member and every cedi — from one system on any device you already own.</p>
+    <div class="btn-group">
+      <a href="https://launch-restro.synciosolutions.com" class="btn btn-orange" target="_blank" rel="noopener">Get Started</a>
+      <a href="https://calendar.app.google/tKoCecXjgFB6zfyy7" class="btn btn-white-out" target="_blank" rel="noopener">Book a Demo</a>
+    </div>
+    <div class="hero-mockup">
+      <div class="browser-chrome">
+        <div class="browser-dots"><span></span><span></span><span></span></div>
+        <div class="browser-bar"></div>
+      </div>
+      <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/Dashboard.png" alt="Restro Owner Dashboard" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PAIN POINTS ══════════════ -->
+<section class="pain">
+  <div class="container">
+    <span class="eyebrow">Sound Familiar?</span>
+    <h2 class="h2">Running a Restaurant Is Hard<br>Enough Without the Wrong Tools</h2>
+    <div class="pain-grid">
+
+      <div class="pain-card animate-fade">
+        <div class="pain-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div>
+          <h3>Orders Get Lost</h3>
+          <p>Between the front of house and kitchen, mistakes happen. Wrong dishes go out. Customers complain. Your reputation suffers.</p>
+        </div>
+      </div>
+
+      <div class="pain-card animate-fade">
+        <div class="pain-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+        </div>
+        <div>
+          <h3>No Visibility</h3>
+          <p>You work all day but have no clear picture of what you actually made, what was wasted, or who on your team is performing.</p>
+        </div>
+      </div>
+
+      <div class="pain-card animate-fade">
+        <div class="pain-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="11" x2="23" y2="11"/><line x1="20" y1="8" x2="20" y2="14"/></svg>
+        </div>
+        <div>
+          <h3>Staff Accountability</h3>
+          <p>Cash goes missing. Voids happen you did not approve. Without a proper system you cannot prove anything.</p>
+        </div>
+      </div>
+
+      <div class="pain-card animate-fade">
+        <div class="pain-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        </div>
+        <div>
+          <h3>Internet Drops</h3>
+          <p>Ghana's internet is unpredictable. When it goes down your entire operation should not stop with it.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ SOLUTION INTRO ══════════════ -->
+<section class="intro">
+  <div class="container">
+    <span class="eyebrow">Introducing Restro</span>
+    <h2 class="h2">One System. Total Control.</h2>
+    <p class="intro-sub">Restro connects your entire restaurant operation — from the moment a customer orders to the moment you close your shift — in one fully connected system.</p>
+    <div class="stats-strip">
+      <div class="stat-item animate-fade">
+        <div class="stat-val">15+</div>
+        <div class="stat-lbl">Integrated Modules</div>
+      </div>
+      <div class="stat-item animate-fade">
+        <div class="stat-val">0</div>
+        <div class="stat-lbl">Hardware Required</div>
+      </div>
+      <div class="stat-item animate-fade">
+        <div class="stat-val">3 Days</div>
+        <div class="stat-lbl">To Go Live</div>
+      </div>
+      <div class="stat-item animate-fade">
+        <div class="stat-val">7 Days</div>
+        <div class="stat-lbl">Support Every Week</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FEATURES ══════════════ -->
+<section class="features">
+  <div class="container">
+    <span class="eyebrow">Everything You Need</span>
+    <h2 class="h2">Built for Every Part of<br>Your Restaurant</h2>
+
+    <!-- 1 — Point of Sale (image left) -->
+    <div class="feat-block">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/POS_with_orders.png" alt="Restro Point of Sale" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 01</span>
+        <h3>Point of Sale</h3>
+        <p>Take orders and process payments for dine-in, takeaway and delivery from one screen. No confusion, no missed orders.</p>
+        <ul class="feat-list">
+          <li>Dine-in, takeaway and delivery from one screen</li>
+          <li>Paystack online and cash payments</li>
+          <li>Real-time order routing to kitchen and bar</li>
+          <li>Pay Now and Ready for Bill flows</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2 — Kitchen Display (image right) -->
+    <div class="feat-block reverse">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/KDS.png" alt="Kitchen and Bar Display" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 02</span>
+        <h3>Kitchen and Bar Display</h3>
+        <p>Orders appear instantly on kitchen and bar screens the moment they are placed. No paper tickets. No shouting. No mistakes.</p>
+        <ul class="feat-list">
+          <li>Real-time order routing from POS</li>
+          <li>Separate kitchen and bar displays</li>
+          <li>Urgency colour coding as tickets age</li>
+          <li>Sound alerts for new orders</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 3 — Menu Management (image left) -->
+    <div class="feat-block">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/main-site/Menu.png" alt="Menu Management" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 03</span>
+        <h3>Menu Management</h3>
+        <p>Update your menu once and it syncs instantly across every screen in your restaurant. Know your exact food cost and margin per dish.</p>
+        <ul class="feat-list">
+          <li>Live menu updates across all displays</li>
+          <li>Real-time cost and margin tracking per item</li>
+          <li>Categories, variants and modifiers</li>
+          <li>Instant sync across POS and customer screens</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4 — Table Management (image right) -->
+    <div class="feat-block reverse">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/main-site/Table_Managment.png" alt="Table Management" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 04</span>
+        <h3>Table Management</h3>
+        <p>See every table status live. Manage walk-ins, reservations and QR orders all from one floor plan view.</p>
+        <ul class="feat-list">
+          <li>Live table status — available, occupied, reserved</li>
+          <li>Floor plan management</li>
+          <li>Waiter call alerts to FOH and POS</li>
+          <li>Full reservation integration</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5 — QR and Online Ordering (image left) -->
+    <div class="feat-block">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/main-site/Qr-Share_Menu.png" alt="QR and Online Ordering" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 05</span>
+        <h3>QR and Online Ordering</h3>
+        <p>Customers scan to order and pay at the table or order online for pickup and delivery. Everything flows directly into your POS and kitchen.</p>
+        <ul class="feat-list">
+          <li>Table QR ordering and payment</li>
+          <li>Online ordering for pickup and delivery</li>
+          <li>Orders flow directly to POS and kitchen</li>
+          <li>No third party app needed</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 6 — Inventory (image right) -->
+    <div class="feat-block reverse">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/Inventory.png" alt="Inventory Management" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 06</span>
+        <h3>Inventory Management</h3>
+        <p>Stock deducts automatically as sales happen. Know exactly what you have, what it costs and when to reorder.</p>
+        <ul class="feat-list">
+          <li>Automatic stock deduction as sales happen</li>
+          <li>Recipe-based ingredient tracking</li>
+          <li>Low stock alerts by email</li>
+          <li>Purchase order management</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 7 — Staff Management (image left) -->
+    <div class="feat-block">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/Staff.png" alt="Staff Management" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 07</span>
+        <h3>Staff Management and Accountability</h3>
+        <p>Every void, discount and cash movement is tied to a staff member. Know exactly what is happening with your money at all times.</p>
+        <ul class="feat-list">
+          <li>Role-based access control</li>
+          <li>PIN-based staff authentication</li>
+          <li>Performance tracking per staff member</li>
+          <li>Void and discount tracking</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 8 — Reports (image right) -->
+    <div class="feat-block reverse">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/Reports%20%26%20Analytics.png" alt="Reports and Analytics" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 08</span>
+        <h3>Reports and Analytics</h3>
+        <p>See exactly how your restaurant is performing in real time. Sales, orders, payments, cancellations and staff performance all in one dashboard.</p>
+        <ul class="feat-list">
+          <li>Real-time sales dashboard</li>
+          <li>Revenue by order type and payment method</li>
+          <li>Top selling items</li>
+          <li>End of day report sent automatically by email</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 9 — AI Analysis (image left) -->
+    <div class="feat-block">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/main-site/AI_Reports.png" alt="AI Business Analysis" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 09</span>
+        <h3>AI Business Analysis and Fraud Detection</h3>
+        <p>Restro automatically detects unusual patterns, cash discrepancies and suspicious staff activity before they cost you money.</p>
+        <ul class="feat-list">
+          <li>AI-powered sales trend analysis</li>
+          <li>Staff fraud detection — void rates and cash discrepancies</li>
+          <li>Automated email reports on schedule</li>
+          <li>Manual scan available anytime</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 10 — Reservations (image right) -->
+    <div class="feat-block reverse">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/main-site/Reservations.png" alt="Reservations Management" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 10</span>
+        <h3>Reservations Management</h3>
+        <p>Manage bookings, send automated reminders and assign tables — all integrated directly into your POS.</p>
+        <ul class="feat-list">
+          <li>Reservation booking and management</li>
+          <li>Automated email and SMS reminders</li>
+          <li>POS integration and table assignment</li>
+          <li>Live booking management</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 11 — Driver Management (image left) -->
+    <div class="feat-block">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/main-site/Driver-Management.png" alt="Driver Management" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 11</span>
+        <h3>Driver Management</h3>
+        <p>Assign and track deliveries in real time. Know where every driver is and what they are delivering.</p>
+        <ul class="feat-list">
+          <li>Assign drivers directly from POS</li>
+          <li>Live delivery status updates</li>
+          <li>SMS notifications to drivers via Africa's Talking</li>
+          <li>Driver payout management</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 12 — Credit Accounts (image right) -->
+    <div class="feat-block reverse">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/Credit_Accounts.png" alt="Credit Accounts" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 12</span>
+        <h3>Credit Accounts</h3>
+        <p>Create credit accounts for trusted customers and delivery platforms like Bolt Food. Track balances and amounts owed in one place.</p>
+        <ul class="feat-list">
+          <li>Customer credit account management</li>
+          <li>Track orders on account</li>
+          <li>Credit statements and balances</li>
+          <li>Overdue account notifications</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 13 — Customer and Loyalty (image left) -->
+    <div class="feat-block">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/main-site/Customer_loyalty.png" alt="Customer Management and Loyalty" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 13</span>
+        <h3>Customer Management and Loyalty</h3>
+        <p>Build a database of your customers, track their order history and reward them with a loyalty programme.</p>
+        <ul class="feat-list">
+          <li>Customer profiles and order history</li>
+          <li>Loyalty points programme</li>
+          <li>Promotions and discount management</li>
+          <li>Customer insights</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 14 — Shift and Till (image right) -->
+    <div class="feat-block reverse">
+      <div class="feat-img">
+        <div class="feat-img-wrap">
+          <img src="https://raw.githubusercontent.com/SyncioSoftwareSolutionsltd/syncio-website/main/main-site/Shift_Till.png" alt="Shift and Till Management" loading="lazy">
+        </div>
+      </div>
+      <div class="feat-text">
+        <span class="feat-text-tag">Module 14</span>
+        <h3>Shift and Till Management</h3>
+        <p>Open and close shifts with full cash reconciliation. Know exactly what came in and what went out every shift.</p>
+        <ul class="feat-list">
+          <li>Shift opening and closing</li>
+          <li>Cash reconciliation per shift</li>
+          <li>Till management</li>
+          <li>Shift performance reports</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ OFFLINE ══════════════ -->
+<section class="offline">
+  <div class="container">
+    <span class="eyebrow">Built for Ghana</span>
+    <h2 class="h2">Works When Your<br>Internet Does Not</h2>
+    <p class="offline-sub">Power cuts and internet drops are a reality in Ghana. Restro keeps working offline. Orders queue automatically and sync the moment you reconnect. No lost sales. No confusion. No excuses.</p>
+    <div class="offline-cols">
+      <div class="offline-col animate-fade">
+        <div class="offline-col-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <h3>Orders Queue Offline</h3>
+        <p>POS keeps taking orders even when internet drops. Your operation never stops.</p>
+      </div>
+      <div class="offline-col animate-fade">
+        <div class="offline-col-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.01"/></svg>
+        </div>
+        <h3>Auto Sync on Reconnect</h3>
+        <p>Everything syncs automatically the moment you are back online. No manual action needed.</p>
+      </div>
+      <div class="offline-col animate-fade">
+        <div class="offline-col-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3>No Lost Sales</h3>
+        <p>Not a single order or payment is lost during an outage. Every transaction is captured.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PRICING ══════════════ -->
+<section class="pricing">
+  <div class="container">
+    <span class="eyebrow">Simple Pricing</span>
+    <h2 class="h2">Everything Included.<br>No Surprises.</h2>
+    <div class="price-grid">
+
+      <div class="price-card animate-fade">
+        <div class="price-label">Monthly</div>
+        <div class="price-amount">GH₵350</div>
+        <div class="price-period">per month</div>
+        <div class="price-caption">Less than GH₵12 per day</div>
+        <div class="price-setup">One-time setup fee: <strong>GH₵2,500</strong></div>
+        <a href="https://launch-restro.synciosolutions.com" class="btn btn-orange" style="width:100%;justify-content:center" target="_blank" rel="noopener">Get Started</a>
+      </div>
+
+      <div class="price-card featured animate-fade">
+        <div class="price-badge">Best Value</div>
+        <div class="price-label">Annual</div>
+        <div class="price-amount">GH₵3,850</div>
+        <div class="price-period">per year</div>
+        <div class="price-caption">One month free</div>
+        <div class="price-setup">One-time setup fee: <strong>GH₵2,500</strong></div>
+        <a href="https://launch-restro.synciosolutions.com" class="btn btn-orange" style="width:100%;justify-content:center" target="_blank" rel="noopener">Get Started</a>
+      </div>
+
+    </div>
+    <p class="price-note" style="margin-top:2rem">1% transaction fee applies to Paystack online and QR payments only. Cash and manual payments are always free.</p>
+    <p class="price-note">Month-to-month subscription. Cancel anytime with 30 days notice.</p>
+  </div>
+</section>
+
+<!-- ══════════════ HOW IT WORKS ══════════════ -->
+<section class="how">
+  <div class="container">
+    <span class="eyebrow">Getting Started</span>
+    <h2 class="h2">From Sign Up to Go Live<br>in 3 Days</h2>
+    <div class="steps">
+
+      <div class="step animate-fade">
+        <div class="step-num">1</div>
+        <h3>Complete Business Setup</h3>
+        <p>We configure your entire system — menus, tables, inventory, staff accounts and permissions — within 3 days.</p>
+      </div>
+
+      <div class="step animate-fade">
+        <div class="step-num">2</div>
+        <h3>Live Launch Support</h3>
+        <p>A dedicated Restro partner supports you via WhatsApp and phone during your go-live to make sure everything runs smoothly.</p>
+      </div>
+
+      <div class="step animate-fade">
+        <div class="step-num">3</div>
+        <h3>Ongoing Support</h3>
+        <p>Access your dashboard anytime. Our team is available 7 days a week including holidays via WhatsApp and email.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ BOOK A DEMO ══════════════ -->
+<section class="demo">
+  <div class="container">
+    <h2 class="h2">See Restro in Action</h2>
+    <p class="demo-sub">Book a free 30-minute call with our team. We will walk you through the system and answer all your questions.</p>
+    <div class="btn-group">
+      <a href="https://calendar.app.google/tKoCecXjgFB6zfyy7" class="btn btn-orange" style="font-size:1.0625rem;padding:1rem 2.25rem" target="_blank" rel="noopener">Book a Demo</a>
+      <p class="demo-alt">Or get started directly &nbsp;<a href="https://launch-restro.synciosolutions.com" class="btn btn-white-out btn-sm" target="_blank" rel="noopener">Get Started</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FAQ ══════════════ -->
+<section class="faq">
+  <div class="container">
+    <span class="eyebrow">Common Questions</span>
+    <h2 class="h2">Everything You Need to Know</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q">
+          Do I need any special hardware?
+          <svg class="faq-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">No. Restro works on any smartphone, tablet or laptop you already own. Zero hardware investment required.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          How long does setup take?
+          <svg class="faq-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Your dedicated Restro partner configures your entire system within 3 days. You will be ready to go live in under a week.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          What if my internet goes down?
+          <svg class="faq-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Restro keeps working offline. Orders queue automatically when internet drops and sync the moment you reconnect. No lost sales.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          Is my restaurant data safe?
+          <svg class="faq-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Yes. All data is encrypted and stored securely in the cloud. You retain full ownership and can export your data anytime.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          Can I cancel my subscription?
+          <svg class="faq-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Yes. Cancel anytime with 30 days notice by emailing support@synciosolutions.com. Your access continues until the end of your billing period.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          What does the 1% transaction fee apply to?
+          <svg class="faq-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Only to payments processed through Paystack online and QR ordering. Cash and manual payments have no transaction fee.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer id="contact">
+  <div class="footer-grid container">
+    <div class="footer-brand">
+      <a href="/" class="logo">
+        <span class="logo-mark">SYNC<span>IO</span></span>
+      </a>
+      <p class="footer-tag">Built in Ghana. Built for Africa.</p>
+      <div class="footer-contact">
+        <a href="https://wa.me/233551187918" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          +233 55 118 7918
+        </a>
+        <a href="mailto:hello@synciosolutions.com">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          hello@synciosolutions.com
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Products</h4>
+      <a href="/restro">Restro</a>
+      <a href="/">Syncio Salon</a>
+      <a href="/">Syncio Gym</a>
+      <a href="/">Syncio Retail</a>
+      <a href="/">Syncio Fleet</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/#about">About</a>
+      <a href="/#contact">Contact</a>
+      <a href="#">Resources</a>
+      <a href="#">Careers</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+
+  <div class="footer-btm container">
+    <p>&copy; 2026 Syncio Software Solutions Ltd. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  /* ── Mobile menu ── */
+  const burger = document.getElementById('hamburger');
+  const mobNav = document.getElementById('mobNav');
+
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    mobNav.classList.toggle('open');
+    document.body.style.overflow = mobNav.classList.contains('open') ? 'hidden' : '';
+  });
+
+  function closeMenu() {
+    burger.classList.remove('open');
+    mobNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.mob-nav a[href^="#"]').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  /* ── FAQ accordion ── */
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  /* ── Scroll animations ── */
+  const animObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        animObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  function applyAnim(el, delay) {
+    const rect = el.getBoundingClientRect();
+    if (rect.top >= window.innerHeight * 0.95) {
+      el.classList.add('animate-fade');
+      if (delay) el.style.transitionDelay = delay + 's';
+      animObs.observe(el);
+    }
+  }
+
+  document.querySelectorAll('section .h2, section .eyebrow').forEach(el => applyAnim(el, 0));
+  document.querySelectorAll('.feat-block').forEach((block, i) => applyAnim(block, 0));
+
+  ['.stats-strip', '.offline-cols', '.steps', '.price-grid', '.faq-list'].forEach(sel => {
+    document.querySelectorAll(sel).forEach(grid => {
+      Array.from(grid.children).forEach((card, i) => applyAnim(card, i * 0.1));
+    });
+  });
+</script>
+
+<!-- ══════════════ CHAT WIDGET ══════════════ -->
+
+<svg id="ama-def" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="ama-sym" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="50" fill="#FDE8D0"/>
+    <path d="M-2 90 C14 76 30 72 40 74 L44 76 L50 79 L56 76 L60 74 C70 72 86 76 102 90 L102 102 L-2 102Z" fill="#F97316"/>
+    <path d="M42 73 L50 77 L58 73 L57 80 L50 83 L43 80Z" fill="white" opacity="0.88"/>
+    <rect x="44" y="71" width="12" height="11" rx="3" fill="#C07540"/>
+    <ellipse cx="50" cy="50" rx="22" ry="25" fill="#C07540"/>
+    <ellipse cx="28.5" cy="51" rx="4" ry="5.5" fill="#A86030"/>
+    <ellipse cx="71.5" cy="51" rx="4" ry="5.5" fill="#A86030"/>
+    <circle cx="28.5" cy="55.5" r="2.2" fill="#E8A820"/>
+    <circle cx="71.5" cy="55.5" r="2.2" fill="#E8A820"/>
+    <ellipse cx="50" cy="32" rx="23" ry="20" fill="#1C0E05"/>
+    <ellipse cx="50" cy="19" rx="14" ry="10" fill="#241206"/>
+    <ellipse cx="50" cy="16" rx="10" ry="7" fill="#1C0E05"/>
+    <path d="M41 14 Q50 11 59 14" stroke="#0E0703" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+    <path d="M40 17 Q50 14 60 17" stroke="#0E0703" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+    <path d="M40 20 Q50 17 60 20" stroke="#0E0703" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+    <path d="M27 37 Q25 47 27 58" stroke="#1C0E05" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+    <path d="M73 37 Q75 47 73 58" stroke="#1C0E05" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+    <path d="M35 43 Q41 40.5 46 43" stroke="#1C0E05" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <path d="M54 43 Q59 40.5 65 43" stroke="#1C0E05" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <ellipse cx="41" cy="49" rx="5.5" ry="5" fill="white"/>
+    <circle cx="41.5" cy="49.5" r="3.5" fill="#3D2010"/>
+    <circle cx="41.5" cy="49.5" r="2" fill="#150800"/>
+    <circle cx="43" cy="48" r="1.1" fill="white"/>
+    <path d="M36 47 Q41 44.5 46 47" stroke="#0E0703" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <ellipse cx="59" cy="49" rx="5.5" ry="5" fill="white"/>
+    <circle cx="59.5" cy="49.5" r="3.5" fill="#3D2010"/>
+    <circle cx="59.5" cy="49.5" r="2" fill="#150800"/>
+    <circle cx="61" cy="48" r="1.1" fill="white"/>
+    <path d="M54 47 Q59 44.5 64 47" stroke="#0E0703" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M47 56 Q45.5 60 46 62" stroke="#8B5020" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M53 56 Q54.5 60 54 62" stroke="#8B5020" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M46 62 Q50 64 54 62" stroke="#8B5020" stroke-width="1.5" fill="none"/>
+    <path d="M41.5 66.5 Q50 73 58.5 66.5" stroke="#7A3818" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <path d="M43 67 Q50 72 57 67" fill="#C87050" opacity="0.35"/>
+    <ellipse cx="34" cy="60" rx="7" ry="4.5" fill="#E88060" opacity="0.12"/>
+    <ellipse cx="66" cy="60" rx="7" ry="4.5" fill="#E88060" opacity="0.12"/>
+  </symbol>
+</svg>
+
+<style>
+#chat-bubble{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:#F97316;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(249,115,22,.45);z-index:1000;transition:transform .2s,background .2s}
+#chat-bubble:hover{transform:scale(1.08);background:#EA6C10}
+#chat-panel{position:fixed;bottom:90px;right:24px;width:340px;height:480px;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(15,23,42,.18);z-index:1000;display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(14px);transition:opacity .25s,transform .3s cubic-bezier(.34,1.56,.64,1)}
+#chat-panel.open{opacity:1;pointer-events:all;transform:translateY(0)}
+#chat-header{background:#F97316;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;height:65px;box-sizing:border-box}
+.ch-left{display:flex;align-items:center;gap:10px}
+.ama-hdr-av{width:40px;height:40px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid rgba(255,255,255,.3)}
+.ama-hdr-av svg{width:100%;height:100%;display:block}
+.ch-name{color:#fff;font-weight:700;font-size:1rem;line-height:1.25}
+.ch-sub{color:rgba(255,255,255,.85);font-size:.6875rem;margin-top:2px}
+#chat-close{background:none;border:none;color:#fff;cursor:pointer;padding:4px;opacity:.85;transition:opacity .15s;flex-shrink:0;line-height:1;display:flex;align-items:center}
+#chat-close:hover{opacity:1}
+#chat-messages{height:351px;flex:none;overflow-y:auto;padding:14px 12px 8px;display:flex;flex-direction:column;gap:12px}
+#chat-messages::-webkit-scrollbar{width:4px}
+#chat-messages::-webkit-scrollbar-track{background:transparent}
+#chat-messages::-webkit-scrollbar-thumb{background:#E2E8F0;border-radius:4px}
+.cmsg{display:flex;align-items:flex-end;gap:7px}
+.cmsg-user{flex-direction:row-reverse}
+.ama-av32{width:32px;height:32px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.ama-av32 svg{width:100%;height:100%;display:block}
+.cmsg-body{display:flex;flex-direction:column;max-width:calc(100% - 44px)}
+.cmsg-user .cmsg-body{align-items:flex-end;max-width:82%}
+.cbubble{padding:9px 13px;border-radius:14px;font-size:.84375rem;line-height:1.55;word-break:break-word}
+.user-b{background:#F97316;color:#fff;border-bottom-right-radius:4px}
+.ama-b{background:#F1F5F9;color:#1E293B;border-bottom-left-radius:4px}
+.cmsg-time{font-size:.6875rem;color:#94A3B8;margin-top:4px;padding:0 3px}
+.msg-wa{font-size:.6875rem;color:#94A3B8;margin-top:3px;padding:0 3px}
+.msg-wa a{color:#94A3B8;text-decoration:underline;transition:color .15s}
+.msg-wa a:hover{color:#64748B}
+.typing-b{display:flex;align-items:center;gap:5px;min-height:22px}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#94A3B8;animation:dotpulse 1.4s infinite ease-in-out}
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+@keyframes dotpulse{0%,80%,100%{transform:scale(.8);opacity:.5}40%{transform:scale(1.1);opacity:1}}
+#chat-input-bar{border-top:1px solid #E2E8F0;padding:10px 12px;display:flex;gap:8px;align-items:center;flex-shrink:0;background:#fff;height:64px;box-sizing:border-box}
+#chat-input{flex:1;border:1.5px solid #E2E8F0;border-radius:8px;padding:9px 12px;font-family:'Montserrat',sans-serif;font-size:.84375rem;outline:none;transition:border-color .15s;color:#1E293B}
+#chat-input::placeholder{color:#94A3B8}
+#chat-input:focus{border-color:#F97316}
+#chat-input:disabled{background:#F8FAFC;color:#94A3B8}
+#chat-send{background:#F97316;border:none;border-radius:8px;padding:9px 12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0}
+#chat-send:hover{background:#EA6C10}
+#chat-send:disabled{background:#FDBA74;cursor:default}
+@media(max-width:480px){
+  #chat-panel{width:calc(100vw - 48px);height:420px;right:16px;bottom:80px}
+  #chat-messages{height:calc(420px - 65px - 64px)}
+  #chat-bubble{bottom:16px;right:16px}
+}
+</style>
+
+<button id="chat-bubble" aria-label="Chat with Ama, Syncio's virtual assistant">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 6C4 4.9 4.9 4 6 4H22C23.1 4 24 4.9 24 6V17C24 18.1 23.1 19 22 19H9L4 24V6Z" fill="white"/>
+  </svg>
+</button>
+
+<div id="chat-panel" role="dialog" aria-modal="true" aria-label="Chat with Ama">
+  <div id="chat-header">
+    <div class="ch-left">
+      <div class="ama-hdr-av">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><use href="#ama-sym"/></svg>
+      </div>
+      <div>
+        <div class="ch-name">Ama</div>
+        <div class="ch-sub">Syncio's Virtual Assistant</div>
+      </div>
+    </div>
+    <button id="chat-close" aria-label="Close chat">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M14 4L4 14M4 4l10 10" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div id="chat-messages"></div>
+  <div id="chat-input-bar">
+    <input id="chat-input" type="text" placeholder="Ask Ama anything..." maxlength="500" autocomplete="off">
+    <button id="chat-send" aria-label="Send message">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16 2L2 7.5l5.5 1.5L9 16l7-14Z" fill="white"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var SYSTEM = `You are Ama — Syncio's friendly and professional virtual assistant. You help visitors on the Syncio Software Solutions Ltd website learn about our products and get answers to their questions. Your tone is warm, slightly playful and professional. You are proud to represent a Ghana-based software company building world-class products for African businesses.
+
+ABOUT SYNCIO:
+Syncio Software Solutions Ltd is based in Accra, Ghana. We build purpose-built management software for African businesses across different industries. Our mission is simple — African businesses deserve world-class software built specifically for them. Not adapted. Not translated. Built from the ground up for African markets, African payments and African operations.
+
+OUR PRODUCTS:
+1. RESTRO — Live Now
+Ghana's Restaurant Operating System. A fully connected cloud-based restaurant management system built specifically for African restaurants.
+Get started: launch-restro.synciosolutions.com
+
+RESTRO FULL FEATURE LIST:
+- Point of Sale: dine-in, takeaway and delivery orders processed from one screen
+- Kitchen Display System: real-time order routing to kitchen with urgency colour coding and sound alerts
+- Bar Display: separate real-time routing for bar orders
+- Front of House Display: live table status, waiter call alerts, active order visibility
+- Menu Management: full menu with categories, items, variants and modifiers. Real-time cost and margin tracking per item
+- QR and Online Ordering: customers scan to order and pay at table or order online for pickup and delivery. Orders flow directly into POS and kitchen
+- Table Management: live table status, floor plan management, reservation integration
+- Inventory Management: recipe-based ingredient tracking, automatic stock deduction as sales happen, low stock alerts by email, purchase order management, multi-location stock support
+- Staff Management: role-based access control, PIN-based staff authentication, staff performance tracking, shift and till management
+- Driver Management: assign and track delivery drivers, live delivery status, driver payout management, delivery fee tracking
+- Reservations Management: reservation booking and management, automated email and SMS reminders, POS integration and table assignment
+- Reports and Analytics: real-time dashboard, sales, orders, payments, cancellations reporting, shift summaries, end of day report sent automatically by email, staff and shift performance reports
+- AI Business Analysis and Fraud Detection: AI-powered analysis of sales trends, staff fraud detection including void rates and cash discrepancies, automated email reports on configurable schedule, manual run available anytime
+- Customer Management: customer profiles, order history, loyalty programme
+- Promotions and Discounts: create and manage promotions and discount management
+- Paystack Integration: online and QR payments, subscription billing, 1% transaction fee on Paystack payments only — cash is always free
+- Receipt Management: digital receipts for every transaction, email receipt sending, receipt history and management
+- Credit Accounts: customer credit management, credit statements, interest calculation, overdue account notifications. Perfect for trusted customers and delivery platforms like Bolt Food
+
+RESTRO PRICING:
+- One-time setup fee: GH₵2,500 (non-refundable)
+- Monthly subscription: GH₵350 per month
+- Annual subscription: GH₵3,850 per year (one month free)
+- Less than GH₵12 per day
+- 1% transaction fee on Paystack online and QR payments only
+- Cash and manual payments always free
+- Cancel anytime with 30 days notice
+
+RESTRO KEY DIFFERENTIATORS:
+- Works offline: orders queue automatically when internet drops and sync the moment you reconnect. No lost sales, no confusion. Critical for Ghana where power and internet can be unreliable.
+- Mobile first: works on any smartphone, tablet or laptop — zero hardware investment required
+- Built for Ghana: supports Ghana cedis and Paystack, designed for how African restaurants actually operate
+- Full setup included: dedicated partner configures everything in 3 days
+- 30 day dedicated support after launch
+- Ongoing support 7 days a week including holidays via WhatsApp and email
+
+RESTRO ONBOARDING PROCESS:
+Step 1 — Complete Business Setup: Syncio configures the entire system including menus, tables, inventory, staff accounts and permissions within 3 days.
+Step 2 — Live Launch Support: a dedicated Restro partner supports via WhatsApp and phone during go-live.
+Step 3 — Ongoing Support: continued support 7 days a week as the business grows.
+Get started: launch-restro.synciosolutions.com
+
+2. SYNCIO SALON — Coming Soon
+Salon and spa management platform.
+
+3. SYNCIO GYM — Coming Soon
+Gym and fitness management platform.
+
+4. SYNCIO RETAIL — Coming Soon
+Retail management platform.
+
+5. SYNCIO FLEET — Coming Soon
+Private car and fleet management platform.
+
+For all coming soon products visitors can join the early access list at synciosolutions.com
+
+LEGAL AND COMPLIANCE:
+- Syncio is registered with Ghana's Data Protection Commission under Act 843
+- All customer data is encrypted and stored securely in the cloud
+- Customers retain full ownership of their data
+- Data can be exported or deleted on request by emailing support@synciosolutions.com
+- Terms of Service and Privacy Policy available at restro.synciosolutions.com/terms and restro.synciosolutions.com/privacy
+- Subscriptions auto-renew via Paystack
+- Cancel anytime with 30 days notice by emailing support@synciosolutions.com
+- 90 day data retention period after cancellation
+- After 90 days all data is permanently deleted
+- GH₵2,500 onboarding fee is non-refundable under all circumstances
+
+CONTACT INFORMATION:
+- General enquiries: hello@synciosolutions.com
+- Customer support: support@synciosolutions.com
+- WhatsApp: +233551187918
+- Website: synciosolutions.com
+- Support available 7 days a week including holidays
+
+STORYBRAND PRINCIPLES — ALWAYS FOLLOW THESE:
+- The customer is the hero. Syncio is the guide.
+- Always acknowledge the visitor's pain or challenge before presenting the solution
+- Frame every feature as a benefit that solves a real problem — never just list features
+- Connect features to outcomes the business owner actually cares about
+
+IMPORTANT RULES:
+- STRICT 3 SENTENCE LIMIT: Never write more than 3 sentences in a single response. This is non-negotiable. If the topic needs more explanation offer to continue: "Want me to tell you more about that?"
+- NO BOLD TEXT: Never use ** or any markdown bold formatting in responses. Plain text only. The only formatting allowed is a simple dash for bullet points.
+- NO RAMBLING: Give the single most important answer first. Do not list everything at once. Let the visitor ask follow up questions.
+- FOR FEATURES: When asked about features do not list all 18 modules. Pick the 3 most relevant ones and offer to share more.
+- FOR PRICING: State the price in one sentence. Mention the per day cost. Offer to explain what is included.
+- Never make up information not in this briefing
+- If you cannot answer confidently say: That is a great question — let me connect you with our team who can give you the full picture!
+- Always mention offline capability when discussing reliability
+- Never discuss competitor products
+- If asked if you are AI or a robot respond warmly: I am Ama, Syncio's virtual assistant. I am here to help you find the right information — and our lovely human team is always available if you need them! 😊
+- After hours escalation: if asked when someone will respond say: Our team will be in touch with you soon!
+- Never use em dashes in responses. Use commas, periods or restructure sentences naturally instead. Only use a regular dash when showing bullet point list items.`;
+
+  var AMA_AV = '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><use href="#ama-sym"/></svg>';
+  var WA_URL = 'https://wa.me/233551187918?text=Hello%20I%20have%20a%20question%20about%20Syncio';
+  var WA_LINE = '<div class="msg-wa"><a href="' + WA_URL + '" target="_blank" rel="noopener">Prefer to talk to someone? 💬 WhatsApp us</a></div>';
+
+  var history = [];
+  var welcomed = false;
+
+  var bubble   = document.getElementById('chat-bubble');
+  var panel    = document.getElementById('chat-panel');
+  var closeBtn = document.getElementById('chat-close');
+  var msgsEl   = document.getElementById('chat-messages');
+  var inputEl  = document.getElementById('chat-input');
+  var sendBtn  = document.getElementById('chat-send');
+
+  function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  function fmt(s) { return esc(s).replace(/\n/g, '<br>'); }
+  function ts()   { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+  function end()  { msgsEl.scrollTop = msgsEl.scrollHeight; }
+
+  function linkify(s) {
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    s = s.replace(/\*/g, '');
+    s = s.replace(/(https?:\/\/[^\s<>"]+)|(launch-restro\.synciosolutions\.com[^\s<>"]*)/gi, function(m, full, bare) {
+      var url = (full || bare).replace(/[.,;!?)\]]+$/, '');
+      var href = full ? url : ('https://' + url);
+      return '<a href="' + href + '" target="_blank" rel="noopener" style="color:#F97316;text-decoration:underline;">' + url + '</a>';
+    });
+    s = s.replace(/([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})/g, function(m, email) {
+      return '<a href="mailto:' + email + '" style="color:#F97316;">' + email + '</a>';
+    });
+    s = s.replace(/(\+\d{1,3}[\d\s\-().]{7,13})/g, function(m, phone) {
+      var trimmed = phone.trim();
+      var tel = trimmed.replace(/[^\d+]/g, '');
+      return '<a href="tel:' + tel + '" style="color:#F97316;">' + trimmed + '</a>';
+    });
+    return s;
+  }
+
+  var BTN_STYLE = 'display:inline-block;margin-top:8px;margin-right:6px;padding:8px 16px;background:#F97316;color:#fff;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;line-height:1.4;';
+  function ctaBtns(text) {
+    var btns = '';
+    if (/get started|launch-restro|sign up/i.test(text))
+      btns += '<a href="https://launch-restro.synciosolutions.com" target="_blank" rel="noopener" style="' + BTN_STYLE + '">Get Started with Restro →</a>';
+    if (/book a demo/i.test(text))
+      btns += '<a href="https://calendar.app.google/tKoCecXjgFB6zfyy7" target="_blank" rel="noopener" style="' + BTN_STYLE + '">Book a Demo →</a>';
+    return btns ? '<div style="margin-top:4px;">' + btns + '</div>' : '';
+  }
+
+  function addUser(text) {
+    var el = document.createElement('div');
+    el.className = 'cmsg cmsg-user';
+    el.innerHTML = '<div class="cmsg-body"><div class="cbubble user-b">' + esc(text) + '</div><div class="cmsg-time">' + ts() + '</div></div>';
+    msgsEl.appendChild(el);
+    end();
+  }
+
+  function addAmaHTML(html) {
+    var el = document.createElement('div');
+    el.className = 'cmsg cmsg-ama';
+    el.innerHTML = '<div class="ama-av32">' + AMA_AV + '</div><div class="cmsg-body"><div class="cbubble ama-b">' + html + '</div><div class="cmsg-time">' + ts() + '</div>' + WA_LINE + '</div>';
+    msgsEl.appendChild(el);
+    end();
+    return el;
+  }
+
+  function addAma(text) {
+    var el = document.createElement('div');
+    el.className = 'cmsg cmsg-ama';
+    var btns = ctaBtns(text);
+    el.innerHTML = '<div class="ama-av32">' + AMA_AV + '</div><div class="cmsg-body"><div class="cbubble ama-b">' + linkify(fmt(text)) + '</div>' + btns + '<div class="cmsg-time">' + ts() + '</div>' + WA_LINE + '</div>';
+    msgsEl.appendChild(el);
+    end();
+    return el;
+  }
+
+  function showTyping() {
+    var el = document.createElement('div');
+    el.className = 'cmsg cmsg-ama';
+    el.id = 'chat-typing';
+    el.innerHTML = '<div class="ama-av32">' + AMA_AV + '</div><div class="cmsg-body"><div class="cbubble ama-b typing-b"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>';
+    msgsEl.appendChild(el);
+    end();
+    return el;
+  }
+
+  function openPanel() {
+    panel.classList.add('open');
+    if (!welcomed) {
+      welcomed = true;
+      addAma('Hi there 👋🏾 I\'m Ama, Syncio\'s virtual assistant. Ask me anything about Restro or our other products — I\'m here to help!');
+    }
+    setTimeout(function() { inputEl.focus(); }, 120);
+  }
+
+  function closePanel() { panel.classList.remove('open'); }
+
+  async function send() {
+    var text = inputEl.value.trim();
+    if (!text || inputEl.disabled) return;
+    inputEl.value = '';
+    inputEl.disabled = true;
+    sendBtn.disabled = true;
+    addUser(text);
+    history.push({ role: 'user', content: text });
+    var typing = showTyping();
+    try {
+      var res = await fetch('https://gtiypqkmdgmbrqwgearn.supabase.co/functions/v1/ama-chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0aXlwcWttZGdtYnJxd2dlYXJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2NTEzOTEsImV4cCI6MjA5MzIyNzM5MX0.COHvDQba60_f1iDo_jgiW02mJ-CSA1h1-DUpPGmipf8',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0aXlwcWttZGdtYnJxd2dlYXJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2NTEzOTEsImV4cCI6MjA5MzIyNzM5MX0.COHvDQba60_f1iDo_jgiW02mJ-CSA1h1-DUpPGmipf8'
+        },
+        body: JSON.stringify({
+          messages: history,
+          system: SYSTEM
+        })
+      });
+      if (!res.ok) {
+        var errData;
+        try { errData = await res.json(); } catch(_) { errData = await res.text(); }
+        console.error('[Ama API] Error', res.status, errData);
+        throw new Error('HTTP ' + res.status);
+      }
+      var data = await res.json();
+      var reply = data.content[0].text;
+      typing.remove();
+      history.push({ role: 'assistant', content: reply });
+      addAma(reply);
+    } catch (e) {
+      console.error('[Ama API] Fetch error:', e);
+      typing.remove();
+      addAmaHTML('Oops — I seem to be having a little trouble connecting right now! 😅 Please reach out to our team directly at <a href="mailto:hello@synciosolutions.com">hello@synciosolutions.com</a> or WhatsApp us at <a href="https://wa.me/233551187918" target="_blank" rel="noopener">+233551187918</a> and they will be happy to help!');
+    } finally {
+      inputEl.disabled = false;
+      sendBtn.disabled = false;
+      inputEl.focus();
+    }
+  }
+
+  bubble.addEventListener('click', function() { panel.classList.contains('open') ? closePanel() : openPanel(); });
+  closeBtn.addEventListener('click', closePanel);
+  sendBtn.addEventListener('click', send);
+  inputEl.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); send(); } });
+  document.addEventListener('click', function(e) {
+    if (panel.classList.contains('open') && !panel.contains(e.target) && !bubble.contains(e.target)) closePanel();
+  });
+})();
+</script>
+</body>
+</html>
